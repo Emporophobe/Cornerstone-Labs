@@ -1,0 +1,7 @@
+1)     2
+2)     5
+3)    43
+4)   -87
+5) 233.5
+
+The average of the numbers is 39.3

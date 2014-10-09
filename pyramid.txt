@@ -1,0 +1,10 @@
+Michael Wong 
+
+Height is 7, base side lengths are 5 and 6.
+Pyramid volume is 70 cubic centimeters. 
+
+
+Height is 7, base side lengths are 7 and 7.
+Pyramid volume is 114.333 cubic centimeters. 
+
+
