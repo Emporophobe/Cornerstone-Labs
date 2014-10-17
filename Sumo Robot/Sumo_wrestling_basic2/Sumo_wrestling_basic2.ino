@@ -35,6 +35,9 @@ int main(void)
     adc_init();  //Initialize analog input
     servo_init(); //Initialize servo motor control
     
+    output_pin(PORT_D4);  //set up the output pins for the LEDs
+    output_pin(PORT_D5);
+    
     while(1==1)            //Execute the following code repeatedly
     {
         voltage = adc_read(5);
@@ -54,7 +57,6 @@ int main(void)
         }
         else if(pin_value(PORT_B0) == HIGH)   //If left sensor detects boundary edge
         { 
-            //lcd_text(FIRST_LINE, "Left Sensor");
             servo_robot(REVERSE, 50);
             high_pin(PORT_D4);    //Set the Port B1 pin high
             high_pin(PORT_D5);     //Set the Port B2 pin high
@@ -64,11 +66,9 @@ int main(void)
             delay_ms(turnTime);
             servo_robot(SPIN_RIGHT, 50);
             delay_ms(turnTime);
-            //lcd_clear();
         }
         else if(pin_value(PORT_D7) == HIGH)  //If right sensor detects table edge
         {   
-            //lcd_text(SECOND_LINE, "Right Sensor");
             servo_robot(REVERSE, 50);
             high_pin(PORT_D4);    //Set the Port B1 pin high
             high_pin(PORT_D5);     //Set the Port B2 pin high
@@ -77,12 +77,10 @@ int main(void)
             low_pin(PORT_D5);     //Set the Port B2 pin low
             servo_robot(SPIN_LEFT, 50);
             delay_ms(turnTime);
-            //lcd_clear();
         }
         else
         {
             //servo_robot(FORWARD, 100);
-            
             
             if(distance < distanceThreshold)
             {
