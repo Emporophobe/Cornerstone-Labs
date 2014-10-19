@@ -10,6 +10,7 @@ Note: This code works with a black course background and a white boundary.  For 
 #include <adc.h>
 #include <ms_delay.h>
 #include <servo.h>
+#include <sound.h>
 #include <math.h>
 
 double distanceThreshold = 11;
@@ -38,8 +39,14 @@ int main(void)
     output_pin(PORT_D4);  //set up the output pins for the LEDs
     output_pin(PORT_D5);
     
+    
+    tone_out(PORT_D6, 440, 200);  // Make a 440-Hertz tone for 200 milliseconds
+    tone_out(PORT_D6, 535, 100);  // Make a 535-Hertz tone for 100 milliseconds
+
+    
     while(1==1)            //Execute the following code repeatedly
     {
+      
         voltage = adc_read(5);
         distance = convertFrontReading(voltage);
         lcd_decimal(FIRST_LINE, distance, 4); //Display x on LCD
