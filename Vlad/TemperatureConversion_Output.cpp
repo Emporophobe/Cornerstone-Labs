@@ -27,13 +27,13 @@ int main ()
 	ifstream infile(".\\Input\\fahrenheit.txt");
 	ofstream outfile(".\\Output\\converted_temperatures.txt");
 	
-	        int number_of_rows = 0;
-	        int file_content = 0;
-	       
-	        while(infile_findLength >> file_content)
-	        {
-	                number_of_rows++;
-	        }
+	int number_of_rows = 0;
+	int file_content = 0;
+	
+	while(infile_findLength >> file_content)
+	{
+	        number_of_rows++;
+	}
 	       
 	//Declare variables pertaining to the 2D array containing all the temperature values
 	const int ARRAY_HEIGHT = number_of_rows;
