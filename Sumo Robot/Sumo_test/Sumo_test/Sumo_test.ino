@@ -14,8 +14,8 @@ Note: This code works with a black course background and a white boundary.  For 
 #include <math.h>
 
 double distanceThreshold = 11;
-int turnTime = 800;
-int forwardTime = 200;
+int turnTime = 900;
+int forwardTime = 250;
 
 double voltage;
 double distance;
@@ -35,6 +35,14 @@ int main(void)
     lcd_init();  //Initialize the LCD
     adc_init();  //Initialize analog input
     servo_init(); //Initialize servo motor control
+    
+    output_pin(PORT_D4);  //set up the output pins for the LEDs
+    output_pin(PORT_D5);
+    
+    
+    tone_out(PORT_D6, 440, 200);  // Make a 440-Hertz tone for 200 milliseconds
+    tone_out(PORT_D6, 535, 100);  // Make a 535-Hertz tone for 100 milliseconds
+
     
     while(1==1)            //Execute the following code repeatedly
     {
@@ -56,20 +64,31 @@ int main(void)
         }
         else if(pin_value(PORT_B0) == HIGH)   //If left sensor detects boundary edge
         { 
-            servo_robot(REVERSE, 100);
+            servo_robot(REVERSE, 50);
+            high_pin(PORT_D4);    //Set the Port B1 pin high
+            high_pin(PORT_D5);     //Set the Port B2 pin high
             delay_ms(turnTime);
-            servo_robot(SPIN_RIGHT, 100);
+            low_pin(PORT_D4);     //Set the Port B1 pin low
+            low_pin(PORT_D5);     //Set the Port B2 pin low
+            delay_ms(turnTime);
+            servo_robot(SPIN_RIGHT, 50);
             delay_ms(turnTime);
         }
         else if(pin_value(PORT_D7) == HIGH)  //If right sensor detects table edge
         {   
-            servo_robot(REVERSE, 100);
+            servo_robot(REVERSE, 50);
+            high_pin(PORT_D4);    //Set the Port B1 pin high
+            high_pin(PORT_D5);     //Set the Port B2 pin high
             delay_ms(turnTime);
-            servo_robot(SPIN_LEFT, 100);
+            low_pin(PORT_D4);     //Set the Port B1 pin low
+            low_pin(PORT_D5);     //Set the Port B2 pin low
+            servo_robot(SPIN_LEFT, 50);
             delay_ms(turnTime);
         }
         else
         {
+            //servo_robot(FORWARD, 100);
+            
             if(distance < distanceThreshold)
             {
              servo_robot(FORWARD, 100);
