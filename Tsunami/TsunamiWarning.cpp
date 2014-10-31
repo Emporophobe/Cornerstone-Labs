@@ -7,21 +7,13 @@ using namespace std;
 
 double arrayAvg(double array[], int size) // I don't understand the purpose of this function, but as it is this "works"... it's never called but whatever
 {	
-	double filled_array[size];
-	double total = 0.0;
-	
-	for (int i = 0; i < size; ++i)
+	double total;
+	for(int i=0; i<size; i++)
 	{
-		total += array[i];
-		filled_array[i] = array[i];
+		total+=array[i];
 	}
-	cout << "Calculated a total of: " << total << endl << endl;
 	
-	//int size = sizeof array / sizeof *array; <-- This one is technically what a better programmer would write
-	//int size = sizeof array / sizeof array[0];
-	int total_byte_size = sizeof(filled_array) / sizeof(*filled_array);
-	
-	return total / total_byte_size;
+	return total/size;
 }
 
 void printArray(double array[], int size) //This will print arrays are tell you how many bytes are contained in things. Returns increments of 8 instead of 4 for some reason...
@@ -34,16 +26,16 @@ void printArray(double array[], int size) //This will print arrays are tell you 
 		filled_array[i] = array[i];
 	}
 	cout << endl << endl;
-	cout << "The number of bytes in the entire array (all indices): " << sizeof(filled_array) << endl;
-	cout << "The number of bytes in the first index of the array: " << sizeof(*filled_array) << endl;
-	cout << "\n";
+	//cout << "The number of bytes in the entire array (all indices): " << sizeof(filled_array) << endl;
+	//cout << "The number of bytes in the first index of the array: " << sizeof(*filled_array) << endl;
+	//cout << "\n";
 }
 
 int main(void)
 {
 	int counter = 0;
 	int countercounter = 0;
-	double maxSteepness = 1/7;
+	double maxSteepness = 1.0 / 7;
 	
 	double year, month, day, hour, minute, height, length;
 	
@@ -92,6 +84,8 @@ int main(void)
 			{
 				warnings[countercounter] = counter;
 				countercounter++;
+				
+				//cout << counter << ". " << steepness[counter] << " > " << maxSteepness << endl;
 			}
 			
 			counter++;
@@ -102,8 +96,20 @@ int main(void)
 		cout << "Everything is horrible. Try a different file. \n";
 		return 1;
 	}
-	cout << "The result of the printArray function: ";
 	
-	printArray(years, SIZE);
+	cout << "The following " << countercounter << " readings indicate dangerously steep waves: \n\n";
+	warning << "The following " << countercounter << " readings indicate dangerously steep waves: \n\n";
+		
 	
+	for(int i=0; i<countercounter; i++)
+	{
+		int n = warnings[i];
+		
+		warning << years[n] << " "<< months[n] << " " << days[n] << " " << hours[n] << " " << minutes[n] << " " << heights[n] << " " << lengths[n] << endl;
+		cout << years[n] << " "<< months[n] << " " << days[n] << " " << hours[n] << " " << minutes[n] << " " << heights[n] << " " << lengths[n] << endl;
+	}
+	
+	cout << "The average wave height is " << arrayAvg(heights, SIZE) << endl;
+	cout << "The average wave length is " << arrayAvg(lengths, SIZE) << endl;
+	cout << "The average steepness of the waves is " << arrayAvg(steepness, SIZE) << endl;	
 }
